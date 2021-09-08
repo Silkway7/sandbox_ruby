@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Sandbox</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= javascript_pack_tag 'application' %>
+</head>
+
+<body>
+  <nav>
+
+  </nav>
+
+  <main>
+    <hr>
+    <nav>
+      <ul>
+        <!-- Главная страница и ее альтернатива -->
+        <li><%= link_to 'Home', root_path %></li>
+        <!-- <li><a href="">Home</a></li> -->
+
+        <!-- Страница вопросов -->
+        <li><%= link_to 'Questions', questions_path %></li>
+        <!-- Страница создания вопроса -->
+        <li><%= link_to 'Create question', new_question_path %></li>
+      </ul>
+    </nav>
+    <%# После обращения к нужной странице через контроллер формируется view(отображение) и оно вставляется в body посредством конструкции yield %>
+
+    <%= yield %>
+  </main>
+  
+</body>
+</html>
