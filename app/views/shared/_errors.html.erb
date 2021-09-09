@@ -1,0 +1,14 @@
+<!-- Папка shared для общих паршелов
+
+Если присутствуют какие то ошибки, то делаем их перебор и вывод на экран
+any? - это проверка на наличие элементов внутри блока(объекта)
+object - принимает значение со страницы где подключается данный паршел -->
+<% if object.errors.full_messages.any? %>
+  <div class="alert alert-danger">
+    <ul class="mb-0">
+      <% object.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

@@ -12,28 +12,39 @@
 </head>
 
 <body>
-  <nav>
-
-  </nav>
-
-  <main>
-    <hr>
-    <nav>
-      <ul>
+<header class="p-3 bg-dark text-white">
+  <div class="container">
+    <nav class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+      <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
         <!-- Главная страница и ее альтернатива -->
-        <li><%= link_to 'Home', root_path %></li>
+        <li><%= link_to 'Home', root_path, class: 'nav-link px-2 text-white' %></li>
         <!-- <li><a href="">Home</a></li> -->
-
         <!-- Страница вопросов -->
-        <li><%= link_to 'Questions', questions_path %></li>
-        <!-- Страница создания вопроса -->
-        <li><%= link_to 'Create question', new_question_path %></li>
+        <li><%= link_to 'Questions', questions_path, class: 'nav-link px-2 text-white' %></li>
       </ul>
     </nav>
-    <%# После обращения к нужной странице через контроллер формируется view(отображение) и оно вставляется в body посредством конструкции yield %>
+  </div>
+</header>
 
-    <%= yield %>
-  </main>
-  
+<%# После обращения к нужной странице через контроллер формируется view(отображение) и оно вставляется в body посредством конструкции yield %>
+<main class="container mt-3">
+
+  <!-- *************************************************************************-->
+  <!---------------------------------->
+  <%# flash.each do |k, v| %>
+    <!-- <div class="alert alert-<%# k %>">
+      <%# v %>
+    </div> -->
+  <%# end %>
+  <!---------------------------------->
+
+  <!-- tag - хелпер, позволяющий сделать код выше короче -->
+  <% flash.each do |k, v| %>
+    <%= tag.div v, class: "alert alert-#{k}", role: 'alert' %>
+  <% end %>
+  <!--**************************************************************************-->
+  <%= yield %>
+</main>
+
 </body>
 </html>

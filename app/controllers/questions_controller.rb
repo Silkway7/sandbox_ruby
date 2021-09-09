@@ -28,6 +28,10 @@ class QuestionsController < ApplicationController
     #Если вопрос можно сохранить в БД, то идет переход на страницу вопросов
     # по пути questions_path из routs(это имя роута из консоли)
     if @question.save
+      # flash - сообщение, помещаемое в сессию и выдастся один раз. После
+      # перезагрузки страницы оно появляться не будет
+      # success - это ключ, а сообщение - значение
+      flash[:success] = "Question created!"
       redirect_to questions_path
     else
       # В противном случае требуется отрендерить представление new.html.erb
@@ -51,6 +55,7 @@ class QuestionsController < ApplicationController
     #Если удается обновить данные в БД(подставив параметры и приватного метода)
     # ,то идет переадресация на страницу вопросов
     if @question.update question_params
+      flash[:success] = "Question updated!"
       redirect_to questions_path
     else
       # В противном случае требуется отрендерить представление edit.html.erb
@@ -65,6 +70,7 @@ class QuestionsController < ApplicationController
     @question = Question.find_by id: params[:id]
     # Метод destroy отправляет запрос на удаление в БД
     @question.destroy
+    flash[:success] = "Question deleted!"
     redirect_to questions_path
   end
 

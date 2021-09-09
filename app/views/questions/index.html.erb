@@ -1,27 +1,34 @@
-<h1>Questions</h1>
+<h1 class="mb-4">Questions</h1>
+
+<%= link_to 'New question', new_question_path, class: 'btn btn-primary btn-lg'%>
 
 <%# @questions.inspect - проверка, что находится в переменной  %>
 <%# В контроллере в переменную @questions добавляется информация из БД %>
 <%# Перебираем данные @questions, обращаясь к полям таблицы как к свойствам класса %>
 <% @questions.each do |question| %>
-  <h2><%= question.title %></h2>
+  <article class="card mt-3">
+    <div class="card-body">
+      <h4><%= question.title %></h4>
+      <section class="card-text">
+        <%#  formatted_created_at  берется из модели. Там прописан этот метод %>
+        <time datetime="<%= question.formatted_created_at %>">
+          <%= question.formatted_created_at %>
+        </time>
+        <p class="my-2">
+          <%= question.body %>
+        </p>
+      </section>
 
-  <%#  formatted_created_at  берется из модели. Там прописан этот метод %>
-  <time datetime="<%= question.formatted_created_at %>">
-    <%= question.formatted_created_at %>
-  </time>
-  <p>
-    <%= question.body %>
-    <br>
-    <%= link_to 'Show', question_path(question) %> |
-    <%= link_to 'Edit', edit_question_path(question) %> |
+      <%= link_to 'Show', question_path(question), class: 'btn btn-primary' %>
+      <%= link_to 'Edit', edit_question_path(question), class: 'btn btn-secondary' %>
 
-    <!-- Удаление вопроса. Передается путь к конкретному вопросу
-    , а также через data передаем спец. метод delete
-    confirm - сообщение для подтверждения удаления -->
-    <%= link_to 'Delete', question_path(question), data: {method: :delete, confirm: 'Are you sure?'} %>
-  </p>
+      <!-- Удаление вопроса. Передается путь к конкретному вопросу
+      , а также через data передаем спец. метод delete
+      confirm - сообщение для подтверждения удаления -->
+      <%= link_to 'Delete', question_path(question), class: 'btn btn-danger', data: {method: :delete, confirm: 'Are you sure?'} %>
 
+    </div>
+  </article>
 <% end %>
 
 
