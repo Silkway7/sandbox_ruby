@@ -1,6 +1,13 @@
+<% provide :page_title, 'Questions' %>
+<% currently_at 'Questions' %>
+
 <h1 class="mb-4">Questions</h1>
 
-<%= link_to 'New question', new_question_path, class: 'btn btn-primary btn-lg'%>
+<%= link_to 'New question', new_question_path, class: 'btn btn-primary btn-lg mb-3' %>
+
+<!-- Два знака равенства заменяют функцию raw, разрешающую использовать разметку
+html при рендере-->
+<%= pagination @pagy %>
 
 <%# @questions.inspect - проверка, что находится в переменной  %>
 <%# В контроллере в переменную @questions добавляется информация из БД %>
@@ -14,9 +21,17 @@
         <time datetime="<%= question.formatted_created_at %>">
           <%= question.formatted_created_at %>
         </time>
+
         <p class="my-2">
-          <%= question.body %>
+          <!-- 1) strip_tags - удаляет из строки все теги, чтобы обезопасить принимаемые
+          от пользователя данные
+               2) truncate '', length: 150 - обрезает текст, если он превышает 150
+               символом
+               3) omission: '... (continued)' - это текст в конце обрезанной строки -->
+          <%= truncate strip_tags(question.body), length: 150, omission:
+              '... (continued)' %>
         </p>
+
       </section>
 
       <%= link_to 'Show', question_path(question), class: 'btn btn-primary' %>
@@ -30,5 +45,9 @@
     </div>
   </article>
 <% end %>
+
+<!-- Два знака равенства заменяют функцию raw, разрешающую использовать разметку
+html при рендере-->
+<%= pagination @pagy %>
 
 

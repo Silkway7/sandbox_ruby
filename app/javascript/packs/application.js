@@ -7,5 +7,9 @@ import Rails from "@rails/ujs"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 
+//Портирование компонента для выпадающего меню bootstrap
+import '@popperjs/core'
+import 'bootstrap/js/dist/dropdown'
+
 Rails.start()
 ActiveStorage.start()

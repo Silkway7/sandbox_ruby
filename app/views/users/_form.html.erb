@@ -1,0 +1,69 @@
+<!-- Файлы, начинающиеся с нижнего подчеркивания _ - это парселы, которые являеются
+ небольшими кусками кода, вставляющимися в представления БЕЗ yield
+ По сути, это сделано, чтобы не повторять код и выносить что-то типа форм или таблиц -->
+
+<!-- Подключаем паршел errors, в котором локальная переменная object получит
+значение @user из контроллера страницы-->
+<%= render 'shared/errors', object: @user %>
+
+<!-- Форма создания нового вопроса -->
+<!-- form_with - это хелпер. model:@user - это связывание данной формы
+ с моделью(таблицей), определенной для контроллера и метода данной страницы-->
+<%= form_with model: @user do |f| %>
+  <div class="mb-3 row">
+    <div class="col-sm-2 col-form-label">
+      <%= f.label :email %>
+    </div>
+    <div class="col-sm-10">
+      <%= f.email_field :email, placeholder: "E-mail", class: 'form-control form-control-lg' %>
+    </div>
+  </div>
+
+  <div class="mb-3 row">
+    <div class="col-sm-2 col-form-label">
+      <%= f.label :name %>
+    </div>
+
+    <div class="col-sm-10">
+      <%= f.text_field :name, placeholder: "Name", class: 'form-control form-control-lg' %>
+    </div>
+  </div>
+
+  <div class="mb-3 row">
+    <div class="col-sm-2 col-form-label">
+      <%= f.label :password %>
+    </div>
+    <div class="col-sm-10">
+      <%= f.password_field :password, class: 'form-control form-control-lg' %>
+    </div>
+  </div>
+
+  <div class="mb-3 row">
+    <div class="col-sm-2 col-form-label">
+      <%= f.label :password_confirmation %>
+    </div>
+
+    <div class="col-sm-10">
+      <%= f.password_field :password_confirmation, class: 'form-control form-control-lg' %>
+    </div>
+  </div>
+
+  <!-- Если запись пользователя НЕ является новой записью, то отображается следующее поле -->
+  <% unless @user.new_record? %>
+    <!-- При смене пароля требуется ввести старый пароль -->
+    <div class="mb-3 row">
+      <div class="col-sm-2 col-form-label">
+        <%= f.label :old_password %>
+      </div>
+
+      <div class="col-sm-10">
+        <%= f.password_field :old_password, class: 'form-control form-control-lg' %>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- .new_record? означает - если @user еще не присутствует в БД, а есть только в памяти,
+   то выводится запись 'Register!', если же запись есть в БД, то 'Save' -->
+  <%= f.submit (@user.new_record? ? "Register" : "Save"),
+               class: 'btn btn-primary btn-lg' %>
+<% end %>
